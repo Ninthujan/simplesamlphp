@@ -302,7 +302,7 @@ class SQL extends Store
     public function get(string $type, string $key)
     {
         if (strlen($key) > 50) {
-            $key = sha1($key);
+            $key = hash('sha256',$key);
         }
 
         $query = 'SELECT _value FROM ' . $this->prefix .
@@ -352,7 +352,7 @@ class SQL extends Store
         }
 
         if (strlen($key) > 50) {
-            $key = sha1($key);
+            $key = hash('sha256',$key);
         }
 
         if ($expire !== null) {
@@ -383,7 +383,7 @@ class SQL extends Store
     public function delete(string $type, string $key): void
     {
         if (strlen($key) > 50) {
-            $key = sha1($key);
+            $key = hash('sha256',$key);
         }
 
         $data = [

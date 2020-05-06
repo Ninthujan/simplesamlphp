@@ -26,7 +26,7 @@ $mdh = \SimpleSAML\Metadata\MetaDataStorageHandler::getMetadataHandler();
 if ($type !== 'init') {
     // update association state
     foreach ($state['core:Logout-IFrame:Associations'] as $assocId => &$sp) {
-        $spId = sha1($assocId);
+        $spId = hash('sha256',$assocId);
 
         // move SPs from 'onhold' to 'inprogress'
         if ($sp['core:Logout-IFrame:State'] === 'onhold') {
@@ -94,7 +94,7 @@ if ($state['core:TerminatedAssocId'] !== null) {
 // build an array with information about all services currently logged in
 $remaining = [];
 foreach ($state['core:Logout-IFrame:Associations'] as $association) {
-    $key = sha1($association['id']);
+    $key = hash('sha256',$association['id']);
     $mdset = 'saml20-sp-remote';
     if (substr($association['id'], 0, 4) === 'adfs') {
         $mdset = 'adfs-sp-remote';

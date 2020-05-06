@@ -356,11 +356,11 @@ class LogoutStore
 
         // serialize and anonymize the NameID
         $strNameId = serialize($nameId);
-        $strNameId = sha1($strNameId);
+        $strNameId = hash('sha256',$strNameId);
 
         // Normalize SessionIndex
         if (strlen($sessionIndex) > 50) {
-            $sessionIndex = sha1($sessionIndex);
+            $sessionIndex = hash('sha256',$sessionIndex);
         }
 
         /** @var string $sessionId */
@@ -392,13 +392,13 @@ class LogoutStore
 
         // serialize and anonymize the NameID
         $strNameId = serialize($nameId);
-        $strNameId = sha1($strNameId);
+        $strNameId = hash('sha256',$strNameId);
 
         // Normalize SessionIndexes
         foreach ($sessionIndexes as &$sessionIndex) {
             Assert::string($sessionIndex);
             if (strlen($sessionIndex) > 50) {
-                $sessionIndex = sha1($sessionIndex);
+                $sessionIndex = hash('sha256',$sessionIndex);
             }
         }
 

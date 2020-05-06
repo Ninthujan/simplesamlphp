@@ -132,7 +132,7 @@ class Database
             'slaves' => $config->getArray('database.slaves', []),
         ];
 
-        return sha1(serialize($assembledConfig));
+        return hash('sha256',serialize($assembledConfig));
     }
 
 

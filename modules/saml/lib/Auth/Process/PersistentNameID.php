@@ -100,6 +100,6 @@ class PersistentNameID extends \SimpleSAML\Module\saml\BaseNameIDGenerator
         $uidData .= strlen($uid) . ':' . $uid;
         $uidData .= $secretSalt;
 
-        return sha1($uidData);
+        return hash('sha256',$uidData);
     }
 }

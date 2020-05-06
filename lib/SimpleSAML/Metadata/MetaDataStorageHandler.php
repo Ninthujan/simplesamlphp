@@ -353,15 +353,15 @@ class MetaDataStorageHandler implements \SimpleSAML\Utils\ClearableState
 
 
     /**
-     * Search for an entity's metadata, given the SHA1 digest of its entity ID.
+     * Search for an entity's metadata, given the SHA256 digest of its entity ID.
      *
-     * @param string $sha1 The SHA1 digest of the entity ID.
+     * @param string $sha256 The SHA256 digest of the entity ID.
      * @param string $set The metadata set we are searching.
      *
      * @return null|\SimpleSAML\Configuration The metadata corresponding to the entity, or null if the entity cannot be
      * found.
      */
-    public function getMetaDataConfigForSha1(string $sha1, string $set): ?Configuration
+    public function getMetaDataConfigForSha256(string $sha256, string $set): ?Configuration
     {
         $result = [];
 
@@ -374,7 +374,7 @@ class MetaDataStorageHandler implements \SimpleSAML\Utils\ClearableState
             $result = array_merge($srcList, $result);
         }
         foreach ($result as $remote_provider) {
-            if (sha1($remote_provider['entityid']) == $sha1) {
+            if (hash('sha256',$remote_provider['entityid']) == $sha256) {
                 $remote_provider['metadata-set'] = $set;
 
                 return Configuration::loadFromArray(

@@ -24,7 +24,7 @@ if (!isset($_REQUEST['cancel'])) {
 
 // find the status of all SPs
 foreach ($SPs as $assocId => &$sp) {
-    $spId = 'logout-iframe-' . sha1($assocId);
+    $spId = 'logout-iframe-' . hash('sha256',$assocId);
 
     if (isset($_REQUEST[$spId])) {
         $spStatus = $_REQUEST[$spId];

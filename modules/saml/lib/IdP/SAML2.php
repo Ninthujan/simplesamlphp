@@ -952,7 +952,7 @@ class SAML2
                 $uidData .= strlen($attributeValue) . ':' . $attributeValue;
                 $uidData .= $secretSalt;
 
-                return hash('sha1', $uidData);
+                return hash('sha256', $uidData);
             }
         }
 

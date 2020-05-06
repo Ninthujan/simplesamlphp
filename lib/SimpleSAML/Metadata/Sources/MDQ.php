@@ -112,7 +112,7 @@ class MDQ extends \SimpleSAML\Metadata\MetaDataStorageSource
             throw new Error\ConfigurationError("Missing cache directory configuration.");
         }
 
-        $cachekey = sha1($entityId);
+        $cachekey = hash('sha256',$entityId);
         return $this->cacheDir . '/' . $set . '-' . $cachekey . '.cached.xml';
     }
 

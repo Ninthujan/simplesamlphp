@@ -179,7 +179,7 @@ class Template extends Response
         if ($tag === 'master') {
             $tag = strval(filemtime($file));
         }
-        $tag = substr(hash('md5', $tag), 0, 5);
+        $tag = substr(hash('sha256', $tag), 0, 5);
 
         return $path . '?tag=' . $tag;
     }

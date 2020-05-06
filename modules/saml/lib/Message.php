@@ -140,7 +140,7 @@ class Message
         $candidates = [];
 
         foreach ($certificates as $cert) {
-            $fp = strtolower(sha1(base64_decode($cert)));
+            $fp = strtolower(hash('sha256',base64_decode($cert)));
             if (!in_array($fp, $certFingerprints, true)) {
                 $candidates[] = $fp;
                 continue;

@@ -129,7 +129,7 @@ class TargetedID extends \SimpleSAML\Auth\ProcessingFilter
         $uidData .= strlen($userID) . ':' . $userID;
         $uidData .= $secretSalt;
 
-        $uid = hash('sha1', $uidData);
+        $uid = hash('sha256', $uidData);
 
         if ($this->generateNameId) {
             // Convert the targeted ID to a SAML 2.0 name identifier element

@@ -101,7 +101,7 @@ class IFrameLogoutHandler implements LogoutHandlerInterface
 
         $t = new Template($config, 'IFrameLogoutHandler.twig');
         $t->data['assocId'] = var_export($assocId, true);
-        $t->data['spId'] = sha1($assocId);
+        $t->data['spId'] = hash('sha256',$assocId);
         if (!is_null($error)) {
             $t->data['errorMsg'] = $error->getMessage();
         }
