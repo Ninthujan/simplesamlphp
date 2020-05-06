@@ -198,7 +198,7 @@ class System
      */
     public static function writeFile(string $filename, string $data, int $mode = 0600): void
     {
-        $tmpFile = self::getTempDir() . DIRECTORY_SEPARATOR . rand();
+        $tmpFile = self::getTempDir() . DIRECTORY_SEPARATOR . random_int(0,PHP_INT_MAX);
 
         $res = @file_put_contents($tmpFile, $data);
         if ($res === false) {

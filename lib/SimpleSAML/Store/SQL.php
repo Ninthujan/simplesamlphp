@@ -347,7 +347,7 @@ class SQL extends Store
     {
         Assert::nullOrGreaterThan($expire, 2592000);
 
-        if (rand(0, 1000) < 10) {
+        if (random_int(0, 1000) < 10) {
             $this->cleanKVStore();
         }
 

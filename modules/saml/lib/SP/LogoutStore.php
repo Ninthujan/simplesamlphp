@@ -234,7 +234,7 @@ class LogoutStore
     ): void {
         self::createLogoutTable($store);
 
-        if (rand(0, 1000) < 10) {
+        if (random_int(0, 1000) < 10) {
             self::cleanLogoutStore($store);
         }
 

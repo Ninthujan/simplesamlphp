@@ -169,7 +169,7 @@ class Database
     private function getSlave(): PDO
     {
         if (count($this->dbSlaves) > 0) {
-            $slaveId = rand(0, count($this->dbSlaves) - 1);
+            $slaveId = random_int(0, count($this->dbSlaves) - 1);
             return $this->dbSlaves[$slaveId];
         } else {
             return $this->dbMaster;
