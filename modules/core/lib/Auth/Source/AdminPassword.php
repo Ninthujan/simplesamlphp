@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SimpleSAML\Module\core\Auth\Source;
 
+@session_start();
+
 use SimpleSAML\Configuration;
 use SimpleSAML\Error;
 use Webmozart\Assert\Assert;
@@ -47,6 +49,10 @@ class AdminPassword extends \SimpleSAML\Module\core\Auth\UserPassBase
      */
     protected function login(string $username, string $password): array
     {
+        if (!isset($_SESSION["wrongAttemptCount"])) {
+            $_SESSION["wrongAttemptCount"] = 0;
+        }
+
         $config = Configuration::getInstance();
         $adminPassword = $config->getString('auth.adminpassword', '123');
         if ($adminPassword === '123') {
@@ -58,9 +64,11 @@ class AdminPassword extends \SimpleSAML\Module\core\Auth\UserPassBase
             throw new Error\Error('WRONGUSERPASS');
         }
 
-        if (!\SimpleSAML\Utils\Crypto::pwValid($adminPassword, $password)) {
+        if (!\SimpleSAML\Utils\Crypto::pwValid($adminPassword, $password) || $_SESSION["wrongAttemptCount"] >= 5) {
+            $_SESSION["wrongAttemptCount"]++;
             throw new Error\Error('WRONGUSERPASS');
         }
+        $_SESSION["wrongAttemptCount"] = 0;
         return ['user' => ['admin']];
     }
 }
